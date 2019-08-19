@@ -10,6 +10,8 @@ import com.saket.flightreservation.entities.Reservation;
 import com.saket.flightreservation.repositories.FlightRepository;
 import com.saket.flightreservation.repositories.PassengerRepository;
 import com.saket.flightreservation.repositories.ReservationRepository;
+import com.saket.flightreservation.utilities.EmailUtil;
+import com.saket.flightreservation.utilities.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -22,6 +24,12 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationRepository reservationRepo;
+	
+	@Autowired
+	private PDFGenerator pdfGenerator;
+	
+	@Autowired
+	private EmailUtil emailUtil;
 	
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
@@ -43,6 +51,11 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setCheckedIn(false);
 		
 		Reservation savedReservation = reservationRepo.save(reservation);
+		
+		String filePath = "S:/Saket/Documents/Flights"+savedReservation.getId()+".pdf";
+		pdfGenerator.generateItinerary(savedReservation, filePath);
+		
+		emailUtil.sendItinerary(passenger.getEmail(), filePath);
 		
 		return savedReservation;
 	}
