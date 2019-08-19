@@ -1,8 +1,11 @@
 package com.saket.flightreservation.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.saket.flightreservation.controllers.ReservationController;
 import com.saket.flightreservation.dto.ReservationRequest;
 import com.saket.flightreservation.entities.Flight;
 import com.saket.flightreservation.entities.Passenger;
@@ -16,6 +19,8 @@ import com.saket.flightreservation.utilities.PDFGenerator;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
+	
 	@Autowired
 	private FlightRepository flightRepo;
 	
@@ -33,6 +38,8 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
+		
+		LOGGER.info("inside bookFlight(): request: "+request);
 		
 		Long flightId = request.getFlightId();
 		Flight flight =  flightRepo.findById(flightId).get();

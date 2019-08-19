@@ -85,4 +85,12 @@ public class ReservationRequest {
 		this.sercutiyCode = sercutiyCode;
 	}
 
+	@Override
+	public String toString() {
+		return "ReservationRequest [flightId=" + flightId + ", travellerFirstName=" + travellerFirstName
+				+ ", travellerLastName=" + travellerLastName + ", travellerEmail=" + travellerEmail
+				+ ", travellerPhone=" + travellerPhone + ", nameOnTheCard=" + nameOnTheCard + ", cardNumber="
+				+ cardNumber + ", expirationDate=" + expirationDate + ", sercutiyCode=" + sercutiyCode + "]";
+	}
+
 }

@@ -3,7 +3,7 @@ package com.saket.flightreservation.entities;
 import javax.persistence.Entity;
 
 @Entity
-public class User extends AbstractEntity{
+public class User extends AbstractEntity {
 
 	private String firstName;
 	private String lastName;
@@ -40,6 +40,12 @@ public class User extends AbstractEntity{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password
+				+ "]";
 	}
 
 }

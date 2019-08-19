@@ -1,5 +1,7 @@
 package com.saket.flightreservation.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +18,8 @@ import com.saket.flightreservation.services.ReservationService;
 @Controller
 public class ReservationController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationController.class);
+	
 	@Autowired
 	private FlightRepository flightRepo;
 	
@@ -24,7 +28,7 @@ public class ReservationController {
 	
 	@RequestMapping("/showCompleteReservation")
 	public String showCompleteReservation(@RequestParam("flightId") Long flightId, ModelMap modelMap) {
-		
+		LOGGER.info("inside showCompleteReservation(): flightId: "+flightId);
 		Flight flight = flightRepo.findById(flightId).get();
 		
 		modelMap.addAttribute("flight", flight);
@@ -34,7 +38,7 @@ public class ReservationController {
 	
 	@RequestMapping(value="/completeReservation", method=RequestMethod.POST)
 	public String completeReservation(ReservationRequest request, ModelMap modelMap) {
-		
+		LOGGER.info("inside completeReservation(): request: "+request);
 		Reservation bookFlight = reservationService.bookFlight(request);
 		modelMap.addAttribute("msg", "Booking done successfully! Your transaction ID is: "+
 		bookFlight.getId());
