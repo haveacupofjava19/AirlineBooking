@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.saket.flightreservation.controllers.ReservationController;
 import com.saket.flightreservation.dto.ReservationRequest;
@@ -18,6 +19,8 @@ import com.saket.flightreservation.utilities.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
+
+	private String ITINERARY_DIR = "S:/Saket/Documents/Flights";
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
 	
@@ -37,6 +40,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private EmailUtil emailUtil;
 	
 	@Override
+	@Transactional
 	public Reservation bookFlight(ReservationRequest request) {
 		
 		LOGGER.info("inside bookFlight(): request: "+request);
@@ -59,7 +63,7 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		Reservation savedReservation = reservationRepo.save(reservation);
 		
-		String filePath = "S:/Saket/Documents/Flights"+savedReservation.getId()+".pdf";
+		String filePath = ITINERARY_DIR+savedReservation.getId()+".pdf";
 		pdfGenerator.generateItinerary(savedReservation, filePath);
 		
 		emailUtil.sendItinerary(passenger.getEmail(), filePath);

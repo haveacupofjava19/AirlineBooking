@@ -17,6 +17,10 @@ import com.saket.flightreservation.services.ReservationServiceImpl;
 @Component
 public class EmailUtil {
 	
+	private String EMAIL_TEXT = "PFA Itineary";
+
+	private String EMAIL_SUBJECT = "Flight Itinerary";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmailUtil.class);
 
 	@Autowired
@@ -29,8 +33,8 @@ public class EmailUtil {
 		try {
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 			mimeMessageHelper.setTo(toAddress);
-			mimeMessageHelper.setSubject("Flight Itinerary");
-			mimeMessageHelper.setText("PFA Itineary");
+			mimeMessageHelper.setSubject(EMAIL_SUBJECT);
+			mimeMessageHelper.setText(EMAIL_TEXT);
 			mimeMessageHelper.addAttachment("Itinerary", new File(filePath));
 			sender.send(mimeMessage);
 		} catch (MessagingException e) {

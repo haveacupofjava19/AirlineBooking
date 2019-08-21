@@ -31,5 +31,11 @@ public class FlightController {
 		modelMap.addAttribute("flights", flights);
 		return "displayFlights";
 	}
-
+	
+	@RequestMapping("/showAddFlights")
+	public String addFLights() {
+		
+		return "addFlights";
+	}
+	
 }
