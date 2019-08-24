@@ -1,0 +1,20 @@
+<h2>Booking Details</h2>
+<br />
+<h2>Flight Details</h2>
+<br />
+
+Airlines: {{ data?.flight?.operatingAirlines }}<br />
+Departure City: {{ data?.flight?.departureCity }}<br />
+Arrival City: {{ data?.flight?.arrivalCity }}<br />
+Date of Departure: {{ data?.flight?.dateOfDeparture }}<br />
+Estimated Departure Time: {{ data?.flight?.estimatedDepartureTime }}<br />
+
+<h2>Passenger Details</h2>
+First Name: {{ data?.passenger?.firstName }}<br />
+Last Name: {{ data?.passenger?.lastName }}<br />
+Email: {{ data?.passenger?.email }}<br />
+Phone No: {{ data?.passenger?.phone }}<br />
+
+No of Bags to checkin: <input type="text" [{ngModel}]="noOfBags" /><br />
+
+<button class="button" (click)="checkin(noOfBags)">Checkin Now!!</button>
